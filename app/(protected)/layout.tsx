@@ -6,7 +6,7 @@ export default async function SecondaryLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="secondary-layout min-h-screen h-full px-6 pt-[80px]">
+    <div className="secondary-layout min-h-screen h-full px-6 pt-[100px]">
       <AppNavbar />
       <main>{children}</main>
     </div>

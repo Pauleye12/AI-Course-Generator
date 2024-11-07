@@ -1,12 +1,15 @@
 "use client";
-import React from "react";
-import { Sparkles, Menu } from "lucide-react";
+import React, { useState } from "react";
+import { Sparkles, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathName = usePathname();
+  const [showMobileNav, setShowMobileNav] = useState(false);
   return (
-    <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="fixed left-0 top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+      <div className="max-w-7xl relative mx-auto py-2 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
             <Sparkles className="h-6 w-6 text-indigo-600" />
@@ -18,37 +21,128 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               href="/dashboard"
-              className="text-gray-600 hover:text-gray-900"
+              className={`text-gray-600 hover:text-indigo-700 ${
+                pathName === "/dashboard"
+                  ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                  : ""
+              } `}
             >
               Dashboard
             </Link>
             <Link
               href="/course-library"
-              className="text-gray-600 hover:text-gray-900"
+              className={`text-gray-600 hover:text-indigo-700 ${
+                pathName === "/course-library"
+                  ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                  : ""
+              } `}
             >
               Course Library
             </Link>
             <Link
               href="/generate-course"
-              className="text-gray-600 hover:text-gray-900"
+              className={`text-gray-600 hover:text-indigo-700 ${
+                pathName === "/generate-course"
+                  ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                  : ""
+              } `}
             >
               Generate Course
             </Link>
             <Link
               href="/ai-tutor"
-              className="text-gray-600 hover:text-gray-900"
+              className={`text-gray-600 hover:text-indigo-700 ${
+                pathName === "/ai-tutor"
+                  ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                  : ""
+              } `}
             >
               AI Tutor
             </Link>
-            <Link href="/quiz" className="text-gray-600 hover:text-gray-900">
+            <Link
+              href="/quiz"
+              className={`text-gray-600 hover:text-indigo-700 ${
+                pathName === "/quiz"
+                  ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                  : ""
+              } `}
+            >
               Quiz
             </Link>
           </nav>
 
-          <button className="md:hidden">
-            <Menu className="h-6 w-6 text-gray-600" />
+          <button
+            onClick={() => setShowMobileNav(!showMobileNav)}
+            className="md:hidden"
+          >
+            {showMobileNav ? (
+              <X className="h-6 w-6 text-gray-600" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-600" />
+            )}
           </button>
         </div>
+        {showMobileNav && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-gray-100 shadow-lg">
+            <div className="flex flex-col space-y-4 p-4">
+              <Link
+                href="/dashboard"
+                onClick={() => setShowMobileNav(!showMobileNav)}
+                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                  pathName === "/dashboard"
+                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                    : ""
+                } `}
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/course-library"
+                onClick={() => setShowMobileNav(!showMobileNav)}
+                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                  pathName === "/course-library"
+                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                    : ""
+                } `}
+              >
+                Course Library
+              </Link>
+              <Link
+                href="/generate-course"
+                onClick={() => setShowMobileNav(!showMobileNav)}
+                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                  pathName === "/generate-course"
+                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                    : ""
+                } `}
+              >
+                Generate Course
+              </Link>
+              <Link
+                href="/ai-tutor"
+                onClick={() => setShowMobileNav(!showMobileNav)}
+                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                  pathName === "/ai-tutor"
+                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                    : ""
+                } `}
+              >
+                AI Tutor
+              </Link>
+              <Link
+                href="/quiz"
+                onClick={() => setShowMobileNav(!showMobileNav)}
+                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                  pathName === "/quiz"
+                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                    : ""
+                } `}
+              >
+                Quiz
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

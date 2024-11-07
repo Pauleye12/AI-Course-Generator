@@ -8,6 +8,7 @@ import {
   RefreshCw,
   ArrowLeft,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Dummy data for demonstration
 const initialPlan = {
@@ -54,6 +55,10 @@ export default function LearningPlanReview({
 }) {
   const [plan, setPlan] = useState(initialPlan);
   const [editingModule, setEditingModule] = useState<number | null>(null);
+  const router = useRouter();
+  const handleApprove = () => {
+    router.push("/course-library");
+  };
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
@@ -64,7 +69,7 @@ export default function LearningPlanReview({
         {" "}
         <ArrowLeft /> Go back
       </p>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row gap-3 justify-between items-center mb-8">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
             Learning Plan Review
@@ -165,7 +170,10 @@ export default function LearningPlanReview({
           <button className="px-6 py-2 border-2 border-gray-200 text-gray-600 rounded-lg hover:border-gray-300">
             Request Changes
           </button>
-          <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+          <button
+            onClick={handleApprove}
+            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+          >
             Approve & Generate
           </button>
         </div>
