@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import StatsCard from "./StatCard";
 import CourseCard from "./CourseCard";
+import { motion } from "framer-motion";
 
 const courses = [
   {
@@ -66,9 +67,42 @@ const stats = [
   },
 ];
 
+const pageVariants = {
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+  initial: {
+    opacity: 0,
+    x: "100%",
+  },
+  exit: {
+    opacity: 0,
+    x: "-100%",
+    transition: {
+      duration: 7,
+      ease: "easeOut",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+};
+
 export default function LearningDashboard() {
   return (
-    <div className="space-y-8">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="visible"
+      exit="exit"
+      className="space-y-8"
+    >
       {/* Welcome Section */}
       <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-8 text-white">
         <h1 className="text-3xl font-bold mb-2">Welcome back, Alex! 👋</h1>
@@ -90,7 +124,7 @@ export default function LearningDashboard() {
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">Active Courses</h2>
-            <button className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+            <button className="text-sm text-indigo-600 hover:text-indigo-700 hover:scale-110 ease-in transition-all duration-[350ms] font-medium">
               View All Courses
             </button>
           </div>
@@ -158,7 +192,7 @@ export default function LearningDashboard() {
               ].map((achievement, index) => (
                 <div
                   key={index}
-                  className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center hover:bg-gray-200 transition-all duration-300 space-x-3 p-3 bg-gray-50 rounded-lg"
                 >
                   <div
                     className={`p-2 rounded-full bg-white ${achievement.color}`}
@@ -174,6 +208,6 @@ export default function LearningDashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

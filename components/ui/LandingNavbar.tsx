@@ -3,6 +3,30 @@ import React, { useState } from "react";
 import { Sparkles, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+
+const mobileNavVariant = {
+  hidden: {
+    opacity: 0,
+    y: "-100%",
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+};
 
 export default function Header() {
   const pathName = usePathname();
@@ -21,7 +45,7 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <a
               href="#features"
-              className={`text-gray-600 hover:text-indigo-700 ${
+              className={`text-gray-600 hover:text-indigo-700 transition-all duration-300 ${
                 pathName === "#features"
                   ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
                   : ""
@@ -31,7 +55,7 @@ export default function Header() {
             </a>
             <a
               href="#templates"
-              className={`text-gray-600 hover:text-indigo-700 ${
+              className={`text-gray-600 hover:text-indigo-700 transition-all duration-300 ${
                 pathName === "#templates"
                   ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
                   : ""
@@ -41,7 +65,7 @@ export default function Header() {
             </a>
             <a
               href="#pricing"
-              className={`text-gray-600 hover:text-indigo-700 ${
+              className={`text-gray-600 hover:text-indigo-700 transition-all duration-300 ${
                 pathName === "#pricing"
                   ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
                   : ""
@@ -51,7 +75,7 @@ export default function Header() {
             </a>
             <Link
               href="/dashboard"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="bg-indigo-600 text-white px-4 transition-all duration-300 py-2 rounded-lg hover:bg-indigo-700"
             >
               Get Started
             </Link>
@@ -69,51 +93,59 @@ export default function Header() {
           </button>
         </div>
 
-        {showMobileNav && (
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-gray-100 shadow-lg">
-            <div className="flex flex-col space-y-4 p-4">
-              <a
-                href="#features"
-                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
-                  pathName === "#features"
-                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
-                    : ""
-                }  `}
-                onClick={() => setShowMobileNav(!showMobileNav)}
-              >
-                Features
-              </a>
-              <a
-                href="#templates"
-                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
-                  pathName === "#templates"
-                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
-                    : ""
-                }  `}
-                onClick={() => setShowMobileNav(!showMobileNav)}
-              >
-                Templates
-              </a>
-              <a
-                href="#pricing"
-                className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
-                  pathName === "#pricing"
-                    ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
-                    : ""
-                }  `}
-                onClick={() => setShowMobileNav(!showMobileNav)}
-              >
-                Pricing
-              </a>
-              <Link
-                href="/dashboard"
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {showMobileNav && (
+            <motion.div
+              variants={mobileNavVariant}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-gray-100 shadow-lg"
+            >
+              <div className="flex flex-col space-y-4 p-4">
+                <a
+                  href="#features"
+                  className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                    pathName === "#features"
+                      ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                      : ""
+                  }  `}
+                  onClick={() => setShowMobileNav(!showMobileNav)}
+                >
+                  Features
+                </a>
+                <a
+                  href="#templates"
+                  className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                    pathName === "#templates"
+                      ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                      : ""
+                  }  `}
+                  onClick={() => setShowMobileNav(!showMobileNav)}
+                >
+                  Templates
+                </a>
+                <a
+                  href="#pricing"
+                  className={`text-gray-600 hover:text-indigo-700 px-4 py-2 hover:bg-gray-50 rounded-lg ${
+                    pathName === "#pricing"
+                      ? " border-b-2 border-solid border-indigo-600 text-indigo-600 font-medium  "
+                      : ""
+                  }  `}
+                  onClick={() => setShowMobileNav(!showMobileNav)}
+                >
+                  Pricing
+                </a>
+                <Link
+                  href="/dashboard"
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

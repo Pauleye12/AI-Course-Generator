@@ -14,6 +14,7 @@ import {
   Users,
 } from "lucide-react";
 import ReviewCourse from "./ReviewCourse";
+import { motion } from "framer-motion";
 
 const formatOptions = [
   {
@@ -48,6 +49,23 @@ const formatOptions = [
   //},
 ];
 
+const pageVariants = {
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+  initial: {
+    opacity: 0,
+    x: "100%",
+  },
+};
+
 export default function CourseCreator() {
   const [selectedFormats, setSelectedFormats] = useState<string[]>(["video"]);
   const [courseDescription, setCourseDescription] = useState("");
@@ -77,7 +95,12 @@ export default function CourseCreator() {
   return reviewCourse ? (
     <ReviewCourse setReviewCourse={setReviewCourse} />
   ) : (
-    <div className="max-w-4xl mx-auto">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="visible"
+      className="max-w-4xl mx-auto"
+    >
       {/* Header Section */}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center space-x-2 mb-4">
@@ -217,7 +240,7 @@ export default function CourseCreator() {
             {/* Submit Button */}
             <button
               onClick={handleSubmit}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-3"
+              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-[1.02] duration-300 flex items-center justify-center space-x-3"
             >
               <Wand2 className="h-6 w-6" />
               <span className="text-lg font-semibold">
@@ -227,6 +250,6 @@ export default function CourseCreator() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

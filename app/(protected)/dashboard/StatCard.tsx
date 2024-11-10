@@ -17,7 +17,7 @@ export default function StatsCard({
   color,
 }: StatsCardProps) {
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl p-6 shadow-sm group hover:shadow-md transition-all">
+    <div className="relative overflow-hidden hover:scale-110 duration-300 bg-white rounded-xl p-6 shadow-sm group hover:shadow-md transition-all">
       <div className="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 opacity-10 group-hover:opacity-20 transition-opacity">
         <Icon className={`w-full h-full ${color}`} />
       </div>

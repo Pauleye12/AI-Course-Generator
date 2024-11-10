@@ -6,6 +6,7 @@ import {
   ArrowRight,
   Timer,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Question {
   id: number;
@@ -40,6 +41,23 @@ const demoQuestions: Question[] = [
   },
 ];
 
+const pageVariants = {
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+  initial: {
+    opacity: 0,
+    x: "100%",
+  },
+};
+
 export default function QuizInterface() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -66,7 +84,12 @@ export default function QuizInterface() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-8">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="visible"
+      className="bg-white rounded-2xl shadow-xl p-8"
+    >
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-bold text-gray-900">Module Quiz</h2>
         <div className="flex items-center space-x-4">
@@ -92,7 +115,7 @@ export default function QuizInterface() {
                 key={index}
                 onClick={() => handleAnswerSelect(index)}
                 disabled={selectedAnswer !== null}
-                className={`w-full text-left p-4 rounded-lg transition-all ${
+                className={`w-full text-left p-4 rounded-lg transition-all duration-300 ${
                   selectedAnswer === null
                     ? "hover:bg-indigo-50 border-2 border-gray-200"
                     : selectedAnswer === index
@@ -151,6 +174,6 @@ export default function QuizInterface() {
             </button>
           )}
       </div>
-    </div>
+    </motion.div>
   );
 }

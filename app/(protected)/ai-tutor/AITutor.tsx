@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Send, Bot, User, Lightbulb, History } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function TutorInterface() {
   const [messages, setMessages] = useState([
@@ -11,6 +12,22 @@ export default function TutorInterface() {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const pageVariants = {
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut",
+        type: "spring",
+        bounce: 0.3,
+      },
+    },
+    initial: {
+      opacity: 0,
+      x: "100%",
+    },
+  };
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -34,14 +51,19 @@ export default function TutorInterface() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl h-full min-h-[300px] flex flex-col">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="visible"
+      className="bg-white rounded-2xl shadow-xl h-full min-h-[300px] flex flex-col"
+    >
       <div className="p-6 border-b border-gray-100">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Bot className="h-6 w-6 text-indigo-600" />
             <h2 className="text-xl font-semibold text-gray-900">AI Tutor</h2>
           </div>
-          <button className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded-lg">
+          <button className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 transition-all duration-300 rounded-lg">
             <History className="h-4 w-4" />
             <span>History</span>
           </button>
@@ -119,12 +141,12 @@ export default function TutorInterface() {
           </div>
           <button
             onClick={handleSend}
-            className="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            className="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 "
           >
             <Send className="h-5 w-5" />
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -9,6 +9,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 // Dummy data for demonstration
 const initialPlan = {
@@ -48,6 +49,23 @@ const initialPlan = {
   ],
 };
 
+const reviewVariants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      ease: "easeIn",
+      type: "spring",
+      bounce: 0.3,
+    },
+  },
+  initial: {
+    opacity: 0,
+    y: "100%",
+  },
+};
+
 export default function LearningPlanReview({
   setReviewCourse,
 }: {
@@ -61,9 +79,14 @@ export default function LearningPlanReview({
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+    <motion.div
+      variants={reviewVariants}
+      initial="initial"
+      animate="visible"
+      className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8"
+    >
       <p
-        className=" flex items-center w-fit gap-2 mb-4 text-gray-600 hover:text-indigo-600 cursor-pointer"
+        className=" flex items-center w-fit gap-2 mb-4 text-gray-600 hover:text-indigo-600 cursor-pointer transition-all duration-300"
         onClick={() => setReviewCourse(false)}
       >
         {" "}
@@ -83,7 +106,7 @@ export default function LearningPlanReview({
             <Clock className="h-5 w-5" />
             <span>{plan.estimatedDuration}</span>
           </div>
-          <button className="flex items-center space-x-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100">
+          <button className="flex items-center space-x-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-all duration-300 ">
             <RefreshCw className="h-4 w-4" />
             <span>Regenerate</span>
           </button>
@@ -94,7 +117,7 @@ export default function LearningPlanReview({
         {plan.modules.map((module, index) => (
           <div
             key={module.id}
-            className="relative bg-gray-50 rounded-xl p-6 border-2 border-gray-100 hover:border-indigo-100 transition-colors"
+            className="relative bg-gray-50 rounded-xl p-6 border-2 border-gray-100 hover:border-indigo-100 transition-all duration-300"
           >
             <div className="absolute left-4 top-1/2 -translate-y-1/2 cursor-move opacity-30 hover:opacity-100">
               <GripVertical className="h-5 w-5 text-gray-400" />
@@ -133,11 +156,11 @@ export default function LearningPlanReview({
                         editingModule === module.id ? null : module.id
                       )
                     }
-                    className="p-2 text-gray-500 hover:text-indigo-600 rounded-lg hover:bg-indigo-50"
+                    className="p-2 text-gray-500 hover:text-indigo-600 rounded-lg hover:bg-indigo-50 transition-all duration-300 "
                   >
                     <Save className="h-4 w-4" />
                   </button>
-                  <button className="p-2 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50">
+                  <button className="p-2 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50 transition-all duration-300 ">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
@@ -172,12 +195,12 @@ export default function LearningPlanReview({
           </button>
           <button
             onClick={handleApprove}
-            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 hover:scale-110 transition-all duration-500 "
           >
             Approve & Generate
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
