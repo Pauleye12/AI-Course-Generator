@@ -86,7 +86,7 @@ const pageVariants = {
     opacity: 0,
     x: "-100%",
     transition: {
-      duration: 7,
+      duration: 0.7,
       ease: "easeOut",
       type: "spring",
       bounce: 0.3,

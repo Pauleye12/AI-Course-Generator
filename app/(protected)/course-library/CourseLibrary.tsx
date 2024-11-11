@@ -163,12 +163,7 @@ export default function CourseLibrary() {
                     <span>{course.duration}</span>
                   </div>
                 </div>
-                <button
-                  onClick={() =>
-                    (window.location.href = `/course/${course.id}`)
-                  }
-                  className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 hover:translate-y-1  "
-                >
+                <button className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 hover:translate-y-1  ">
                   <BookOpen className="h-5 w-5" />
                   <span>Start Learning</span>
                   <ChevronRight className="h-5 w-5" />
