@@ -1,71 +1,10 @@
-import React from "react";
-import {
-  Clock,
-  Trophy,
-  Brain,
-  Calendar,
-  Zap,
-  Flame,
-  Award,
-} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Trophy, Brain, Calendar, Flame, Award } from "lucide-react";
 import StatsCard from "./StatCard";
 import CourseCard from "./CourseCard";
 import { motion } from "framer-motion";
-
-const courses = [
-  {
-    title: "Advanced Machine Learning",
-    progress: 65,
-    timeLeft: "2 weeks left",
-    topics: 12,
-    image: "/images/machineLearning.webp",
-  },
-  {
-    title: "Web Development Bootcamp",
-    progress: 42,
-    timeLeft: "4 weeks left",
-    topics: 15,
-    image: "/images/webdev.webp",
-  },
-  {
-    title: "UI/UX Design Principles",
-    progress: 89,
-    timeLeft: "3 days left",
-    topics: 8,
-    image: "/images/uiux.webp",
-  },
-];
-
-const stats = [
-  {
-    icon: Clock,
-    label: "Study Time",
-    value: "47h 23m",
-    trend: "+2.5h this week",
-    color: "text-blue-600",
-  },
-  {
-    icon: Trophy,
-    label: "Courses Completed",
-    value: "7",
-    trend: "2 this month",
-    color: "text-amber-600",
-  },
-  {
-    icon: Zap,
-    label: "Current Streak",
-    value: "12 days",
-    trend: "Best: 15 days",
-    color: "text-purple-600",
-  },
-  {
-    icon: Brain,
-    label: "Knowledge Points",
-    value: "3,847",
-    trend: "+350 pts this week",
-    color: "text-emerald-600",
-  },
-];
+import { getCourses, getDashboardMetrics } from "@/lib/MockDB";
+import { coursesType, metrics } from "@/lib/types";
 
 const pageVariants = {
   visible: {
@@ -95,6 +34,15 @@ const pageVariants = {
 };
 
 export default function LearningDashboard() {
+  useEffect(() => {
+    const NewCourses = getCourses();
+    const NewMetrics = getDashboardMetrics();
+    setCourses(NewCourses);
+    setMetrics(NewMetrics);
+  }, []);
+  const [courses, setCourses] = useState<coursesType[]>([]);
+  const [metrics, setMetrics] = useState<metrics[]>([]);
+
   return (
     <motion.div
       variants={pageVariants}
@@ -113,7 +61,7 @@ export default function LearningDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
+        {metrics.map((stat, index) => (
           <StatsCard key={index} {...stat} />
         ))}
       </div>

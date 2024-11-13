@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { prompts } from "@/lib/types";
 
 // Dummy data for demonstration
 const initialPlan = {
@@ -68,8 +69,10 @@ const reviewVariants = {
 
 export default function LearningPlanReview({
   setReviewCourse,
+  promptDetails,
 }: {
   setReviewCourse: (value: boolean) => void;
+  promptDetails: prompts;
 }) {
   const [plan, setPlan] = useState(initialPlan);
   const [editingModule, setEditingModule] = useState<number | null>(null);
@@ -77,6 +80,7 @@ export default function LearningPlanReview({
   const handleApprove = () => {
     router.push("/course-library");
   };
+  console.log(promptDetails);
 
   return (
     <motion.div
@@ -114,6 +118,12 @@ export default function LearningPlanReview({
       </div>
 
       <div className="space-y-6">
+        <p className="-mb-3 flex items-center gap-2 text-center ">
+          Course format:{" "}
+          <span className=" capitalize px-3 text-center font-medium py-2 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 transition-all duration-300 ">
+            {promptDetails.courseFormat}
+          </span>
+        </p>
         {plan.modules.map((module, index) => (
           <div
             key={module.id}

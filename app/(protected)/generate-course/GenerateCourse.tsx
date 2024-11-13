@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import ReviewCourse from "./ReviewCourse";
 import { motion } from "framer-motion";
+import { prompts } from "@/lib/types";
 
 const formatOptions = [
   {
@@ -67,21 +68,27 @@ const pageVariants = {
 };
 
 export default function CourseCreator() {
-  const [selectedFormats, setSelectedFormats] = useState<string[]>(["video"]);
+  const [selectedFormats, setSelectedFormats] = useState("video");
   const [courseDescription, setCourseDescription] = useState("");
   const [activeStep, setActiveStep] = useState(1);
   const [reviewCourse, setReviewCourse] = useState(false);
-
-  const toggleFormat = (formatId: string) => {
-    setSelectedFormats((prev) =>
-      prev.includes(formatId)
-        ? prev.filter((f) => f !== formatId)
-        : [...prev, formatId]
-    );
-  };
+  const [promptsDetails, setPromptsDetails] = useState<prompts>({
+    id: String(Date.now()),
+    date: new Date(),
+    promptMessage: courseDescription,
+    courseFormat: selectedFormats,
+  });
 
   const handleSubmit = () => {
     console.log("Generating course...");
+    const submitDetails: prompts = {
+      id: String(Date.now()),
+      date: new Date(),
+      promptMessage: courseDescription,
+      courseFormat: selectedFormats,
+    };
+    setPromptsDetails(submitDetails);
+    console.log(submitDetails);
     setActiveStep(3);
     setReviewCourse(true);
   };
@@ -93,7 +100,10 @@ export default function CourseCreator() {
   };
 
   return reviewCourse ? (
-    <ReviewCourse setReviewCourse={setReviewCourse} />
+    <ReviewCourse
+      promptDetails={promptsDetails}
+      setReviewCourse={setReviewCourse}
+    />
   ) : (
     <motion.div
       variants={pageVariants}
@@ -191,11 +201,11 @@ export default function CourseCreator() {
                 <button
                   key={id}
                   onClick={() => {
-                    toggleFormat(id);
+                    setSelectedFormats(id);
                     goToStep(2);
                   }}
                   className={`flex items-start space-x-4 p-4 rounded-xl border-2 transition-all hover:shadow-md ${
-                    selectedFormats.includes(id)
+                    selectedFormats === id
                       ? "border-indigo-600 bg-indigo-50 text-indigo-700"
                       : "border-gray-200 hover:border-indigo-200 text-gray-600"
                   }`}

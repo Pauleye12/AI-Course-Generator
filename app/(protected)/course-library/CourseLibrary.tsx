@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Search,
   Filter,
@@ -9,39 +9,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-
-const courses = [
-  {
-    id: 1,
-    title: "Advanced Machine Learning",
-    category: "Data Science",
-    rating: 4.8,
-    enrolled: 1234,
-    duration: "8 weeks",
-    level: "Advanced",
-    image: "/images/machineLearning.webp",
-  },
-  {
-    id: 2,
-    title: "Web Development Bootcamp",
-    category: "Programming",
-    rating: 4.9,
-    enrolled: 2341,
-    duration: "12 weeks",
-    level: "Intermediate",
-    image: "/images/webdev.webp",
-  },
-  {
-    id: 3,
-    title: "UI/UX Design Principles",
-    category: "Design",
-    rating: 4.7,
-    enrolled: 987,
-    duration: "6 weeks",
-    level: "Beginner",
-    image: "/images/uiux.webp",
-  },
-];
+import { getCourses } from "@/lib/MockDB";
+import { coursesType } from "@/lib/types";
 
 const pageVariants = {
   visible: {
@@ -71,6 +40,12 @@ const pageVariants = {
 export default function CourseLibrary() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  useEffect(() => {
+    const NewCourses = getCourses();
+
+    setCourses(NewCourses);
+  }, []);
+  const [courses, setCourses] = useState<coursesType[]>([]);
 
   const categories = [
     "All",
@@ -156,7 +131,6 @@ export default function CourseLibrary() {
                   <div className="flex items-center space-x-1">
                     <Star className="h-5 w-5 text-yellow-400 fill-current" />
                     <span className="font-medium">{course.rating}</span>
-                    <span className="text-gray-500">({course.enrolled})</span>
                   </div>
                   <div className="flex items-center space-x-1 text-gray-500">
                     <Clock className="h-4 w-4" />
