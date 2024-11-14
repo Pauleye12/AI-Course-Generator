@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { prompts } from "@/lib/types";
+import { addCourse } from "@/lib/MockDB";
 
 // Dummy data for demonstration
 const initialPlan = {
@@ -77,7 +78,26 @@ export default function LearningPlanReview({
   const [plan, setPlan] = useState(initialPlan);
   const [editingModule, setEditingModule] = useState<number | null>(null);
   const router = useRouter();
+
   const handleApprove = () => {
+    const CourseTitle = promptDetails.promptMessage
+      .split(" ")
+      .slice(0, 3)
+      .join(" ");
+    addCourse({
+      title: CourseTitle,
+      id: Number(promptDetails.id),
+      category: "Progamming",
+      level: "Intermediate",
+      rating: 4.9,
+      duration: "12 weeks",
+      progress: 42,
+      timeLeft: "4 weeks left",
+      active: false,
+      topics: 15,
+      contentFormat: promptDetails.courseFormat,
+      image: "/images/webdev.webp",
+    });
     router.push("/course-library");
   };
   console.log(promptDetails);

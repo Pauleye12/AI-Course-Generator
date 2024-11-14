@@ -36,11 +36,15 @@ const pageVariants = {
 export default function LearningDashboard() {
   useEffect(() => {
     const NewCourses = getCourses();
+    const ActiveCourse = NewCourses.filter((course) => course.active);
+
     const NewMetrics = getDashboardMetrics();
-    setCourses(NewCourses);
+
+    setActiveCourse(ActiveCourse);
     setMetrics(NewMetrics);
   }, []);
-  const [courses, setCourses] = useState<coursesType[]>([]);
+
+  const [activeCourse, setActiveCourse] = useState<coursesType[]>([]);
   const [metrics, setMetrics] = useState<metrics[]>([]);
 
   return (
@@ -77,7 +81,7 @@ export default function LearningDashboard() {
             </button>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            {courses.map((course, index) => (
+            {activeCourse?.map((course, index) => (
               <CourseCard key={index} {...course} />
             ))}
           </div>
