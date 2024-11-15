@@ -9,6 +9,7 @@ export interface coursesType {
   duration: string;
   progress: number;
   timeLeft: string;
+  active: boolean;
   topics: number;
   contentFormat: string;
   image: string;
