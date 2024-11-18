@@ -1,5 +1,3 @@
-import { Brain } from "lucide-react";
-
 export interface coursesType {
   title: string;
   id: number;
@@ -24,7 +22,7 @@ export interface moduleType {
 }
 
 export interface metrics {
-  icon: typeof Brain;
+  icon: string;
   label: string;
   value: string;
   trend: string;

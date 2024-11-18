@@ -3,8 +3,10 @@ import { Trophy, Brain, Calendar, Flame, Award } from "lucide-react";
 import StatsCard from "./StatCard";
 import CourseCard from "./CourseCard";
 import { motion } from "framer-motion";
-import { getCourses, getDashboardMetrics } from "@/lib/MockDB";
+// import { getCourses, getDashboardMetrics } from "@/lib/MockDB";
+import { getCourses, getAllDashboardMetric } from "@/lib/services";
 import { coursesType, metrics } from "@/lib/types";
+import Link from "next/link";
 
 const pageVariants = {
   visible: {
@@ -35,13 +37,18 @@ const pageVariants = {
 
 export default function LearningDashboard() {
   useEffect(() => {
-    const NewCourses = getCourses();
-    const ActiveCourse = NewCourses.filter((course) => course.active);
+    const fetchData = async () => {
+      const NewCourses = await getCourses();
+      const ActiveCourse = NewCourses.filter(
+        (course: coursesType) => course.active
+      );
 
-    const NewMetrics = getDashboardMetrics();
+      const NewMetrics = await getAllDashboardMetric();
 
-    setActiveCourse(ActiveCourse);
-    setMetrics(NewMetrics);
+      setActiveCourse(ActiveCourse);
+      setMetrics(NewMetrics);
+    };
+    fetchData(); // Call the async function
   }, []);
 
   const [activeCourse, setActiveCourse] = useState<coursesType[]>([]);
@@ -76,9 +83,12 @@ export default function LearningDashboard() {
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">Active Courses</h2>
-            <button className="text-sm text-indigo-600 hover:text-indigo-700 hover:scale-110 ease-in transition-all duration-[350ms] font-medium">
+            <Link
+              href={"/course-library"}
+              className="text-sm text-indigo-600 hover:text-indigo-700 hover:scale-110 ease-in transition-all duration-[350ms] font-medium"
+            >
               View All Courses
-            </button>
+            </Link>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {activeCourse?.map((course, index) => (

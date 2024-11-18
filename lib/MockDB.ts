@@ -1,5 +1,5 @@
 import { Clock, Trophy, Brain, Zap } from "lucide-react";
-import { coursesType, metrics } from "./types";
+import { coursesType } from "./types";
 const mockDatabase = {
   courses: [
     {
@@ -216,6 +216,6 @@ export const getDashboardMetrics = () => {
 };
 
 // Function to add dashboard metrics
-export const addDashboardMetric = (metric: metrics) => {
-  mockDatabase.dashboardMetrics.push(metric);
-};
+// export const addDashboardMetric = (metric: metrics) => {
+//   mockDatabase.dashboardMetrics.push(metric);
+// };

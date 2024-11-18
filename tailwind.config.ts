@@ -6,6 +6,14 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  options: {
+    safelist: [
+      "text-blue-600",
+      "text-amber-600",
+      "text-purple-600",
+      "text-emerald-600",
+    ], // Add your dynamic color class here
+  },
   theme: {
     extend: {
       colors: {

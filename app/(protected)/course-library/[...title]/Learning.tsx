@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { GripVertical, Clock } from "lucide-react";
 import { coursesType } from "@/lib/types";
-import { getCoursesById } from "@/lib/MockDB";
+// import { getCoursesById } from "@/lib/MockDB";
 
 import { usePathname } from "next/navigation";
+import { getCourseById } from "@/lib/services";
 // import { useRouter } from "next/router";
 
 const Learning = () => {
@@ -15,9 +16,12 @@ const Learning = () => {
   const ID = Number(path[3]);
   const [course, setCourse] = useState<coursesType>();
   useEffect(() => {
-    const courseDets = getCoursesById(ID);
+    const fetchData = async (id: number) => {
+      const courseDets = await getCourseById(id);
 
-    setCourse(courseDets);
+      setCourse(courseDets);
+    };
+    fetchData(ID);
   }, [ID]);
 
   return (

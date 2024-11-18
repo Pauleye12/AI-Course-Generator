@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Search,
-  Filter,
+  // Filter,
   BookOpen,
   Clock,
   Star,
@@ -9,7 +9,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { getCategoryCourses, getCourses } from "@/lib/MockDB";
+// import { getCategoryCourses, getCourses } from "@/lib/MockDB";
+import {
+  getCourses,
+  getAllCategory,
+  getCoursesByCategory,
+} from "@/lib/services";
 import { coursesType } from "@/lib/types";
 import Link from "next/link";
 
@@ -41,27 +46,33 @@ const pageVariants = {
 export default function CourseLibrary() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [categories, setCategory] = useState([]);
   const [courses, setCourses] = useState<coursesType[]>([]);
 
   useEffect(() => {
-    const NewCourses = getCourses();
+    const fetchData = async () => {
+      const NewCourses = await getCourses();
+      const NewCategory = await getAllCategory();
 
-    setCourses(NewCourses);
+      setCourses(NewCourses);
+      setCategory(NewCategory);
+    };
+    fetchData();
   }, []);
 
-  const categories = [
-    "All",
-    "Data Science",
-    "Programming",
-    "Design",
-    "Business",
-    "Marketing",
-  ];
+  // const categories = [
+  //   "All",
+  //   "Data Science",
+  //   "Programming",
+  //   "Design",
+  //   "Business",
+  //   "Marketing",
+  // ];
 
-  const handleCategory = (category: string) => {
+  const handleCategory = async (category: string) => {
     setSelectedCategory(category);
 
-    const categoryCourses = getCategoryCourses(category);
+    const categoryCourses = await getCoursesByCategory(category);
     setCourses(categoryCourses);
   };
 
@@ -86,15 +97,15 @@ export default function CourseLibrary() {
               className="pl-10 pr-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             />
           </div>
-          <button className="flex items-center space-x-2 px-4 py-2 border-2 border-gray-200 rounded-lg hover:bg-gray-50">
+          {/* <button className="flex items-center space-x-2 px-4 py-2 border-2 border-gray-200 rounded-lg hover:bg-gray-50">
             <Filter className="h-5 w-5 text-gray-600" />
             <span>Filters</span>
-          </button>
+          </button> */}
         </div>
       </div>
 
       <div className="flex space-x-2 mb-8 overflow-x-auto pb-2">
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <button
             key={category}
             onClick={() => handleCategory(category)}
