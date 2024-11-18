@@ -97,6 +97,38 @@ export default function LearningPlanReview({
       topics: 15,
       contentFormat: promptDetails.courseFormat,
       image: "/images/webdev.webp",
+      modules: [
+        {
+          id: 1,
+          title: "Introduction to Machine Learning",
+          duration: "1 week",
+          topics: [
+            "What is Machine Learning?",
+            "Types of Machine Learning",
+            "Common Applications and Use Cases",
+          ],
+        },
+        {
+          id: 2,
+          title: "Supervised Learning Algorithms",
+          duration: "2 weeks",
+          topics: [
+            "Linear Regression",
+            "Decision Trees",
+            "Support Vector Machines",
+          ],
+        },
+        {
+          id: 3,
+          title: "Model Evaluation",
+          duration: "1 week",
+          topics: [
+            "Training and Test Sets",
+            "Cross-validation",
+            "Performance Metrics",
+          ],
+        },
+      ],
     });
     router.push("/course-library");
   };

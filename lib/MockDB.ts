@@ -15,6 +15,38 @@ const mockDatabase = {
       topics: 12,
       contentFormat: "Video",
       image: "/images/machineLearning.webp",
+      modules: [
+        {
+          id: 1,
+          title: "Introduction to Machine Learning",
+          duration: "1 week",
+          topics: [
+            "What is Machine Learning?",
+            "Types of Machine Learning",
+            "Common Applications and Use Cases",
+          ],
+        },
+        {
+          id: 2,
+          title: "Supervised Learning Algorithms",
+          duration: "2 weeks",
+          topics: [
+            "Linear Regression",
+            "Decision Trees",
+            "Support Vector Machines",
+          ],
+        },
+        {
+          id: 3,
+          title: "Model Evaluation",
+          duration: "1 week",
+          topics: [
+            "Training and Test Sets",
+            "Cross-validation",
+            "Performance Metrics",
+          ],
+        },
+      ],
     },
     {
       title: "Web Development Bootcamp",
@@ -29,9 +61,41 @@ const mockDatabase = {
       topics: 15,
       contentFormat: "Audio",
       image: "/images/webdev.webp",
+      modules: [
+        {
+          id: 1,
+          title: "Introduction to Machine Learning",
+          duration: "1 week",
+          topics: [
+            "What is Machine Learning?",
+            "Types of Machine Learning",
+            "Common Applications and Use Cases",
+          ],
+        },
+        {
+          id: 2,
+          title: "Supervised Learning Algorithms",
+          duration: "2 weeks",
+          topics: [
+            "Linear Regression",
+            "Decision Trees",
+            "Support Vector Machines",
+          ],
+        },
+        {
+          id: 3,
+          title: "Model Evaluation",
+          duration: "1 week",
+          topics: [
+            "Training and Test Sets",
+            "Cross-validation",
+            "Performance Metrics",
+          ],
+        },
+      ],
     },
     {
-      title: "UI/UX Design Principles",
+      title: "UI-UX Design Principles",
       id: 3,
       category: "Design",
       level: "Beginner",
@@ -43,6 +107,38 @@ const mockDatabase = {
       topics: 8,
       contentFormat: "Text",
       image: "/images/uiux.webp",
+      modules: [
+        {
+          id: 1,
+          title: "Introduction to Machine Learning",
+          duration: "1 week",
+          topics: [
+            "What is Machine Learning?",
+            "Types of Machine Learning",
+            "Common Applications and Use Cases",
+          ],
+        },
+        {
+          id: 2,
+          title: "Supervised Learning Algorithms",
+          duration: "2 weeks",
+          topics: [
+            "Linear Regression",
+            "Decision Trees",
+            "Support Vector Machines",
+          ],
+        },
+        {
+          id: 3,
+          title: "Model Evaluation",
+          duration: "1 week",
+          topics: [
+            "Training and Test Sets",
+            "Cross-validation",
+            "Performance Metrics",
+          ],
+        },
+      ],
     },
   ],
   dashboardMetrics: [
@@ -80,6 +176,33 @@ const mockDatabase = {
 // Function to get all courses
 export const getCourses = () => {
   return mockDatabase.courses;
+};
+
+//Function to get course by ID
+export const getCoursesById = (id: number) => {
+  const courses = mockDatabase.courses;
+  const IDCourses = courses.find((C) => C.id === id);
+  return IDCourses;
+};
+
+// Function to get all courses
+export const getCategoryCourses = (category: string) => {
+  const courses = mockDatabase.courses;
+  const categoryCourses = courses.filter((C) => C.category === category);
+
+  if (category !== "All" && categoryCourses.length !== 0) {
+    console.log("yes");
+    return categoryCourses;
+  } else if (category === "All") {
+    return courses;
+  } else if (categoryCourses.length === 0) {
+    console.log("mid");
+    return categoryCourses;
+  } else {
+    console.log("no");
+
+    return courses;
+  }
 };
 
 // Function to add a course

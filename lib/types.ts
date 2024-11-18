@@ -13,6 +13,14 @@ export interface coursesType {
   topics: number;
   contentFormat: string;
   image: string;
+  modules: moduleType[];
+}
+
+export interface moduleType {
+  id: number;
+  title: string;
+  duration: string;
+  topics: string[];
 }
 
 export interface metrics {

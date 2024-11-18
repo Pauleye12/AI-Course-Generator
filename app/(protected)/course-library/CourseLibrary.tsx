@@ -9,8 +9,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { getCourses } from "@/lib/MockDB";
+import { getCategoryCourses, getCourses } from "@/lib/MockDB";
 import { coursesType } from "@/lib/types";
+import Link from "next/link";
 
 const pageVariants = {
   visible: {
@@ -41,13 +42,11 @@ export default function CourseLibrary() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [courses, setCourses] = useState<coursesType[]>([]);
-  const [currentCourses, setCurrentCourses] = useState<coursesType[]>([]);
 
   useEffect(() => {
     const NewCourses = getCourses();
 
     setCourses(NewCourses);
-    setCurrentCourses(NewCourses);
   }, []);
 
   const categories = [
@@ -62,21 +61,8 @@ export default function CourseLibrary() {
   const handleCategory = (category: string) => {
     setSelectedCategory(category);
 
-    const categoryCourses = courses.filter((C) => C.category === category);
-
-    if (category !== "All" && categoryCourses.length !== 0) {
-      console.log("yes");
-      setCurrentCourses(categoryCourses);
-    } else if (category === "All") {
-      setCurrentCourses(courses);
-    } else if (categoryCourses.length === 0) {
-      console.log("mid");
-      setCurrentCourses(categoryCourses);
-    } else {
-      console.log("no");
-
-      setCurrentCourses(courses);
-    }
+    const categoryCourses = getCategoryCourses(category);
+    setCourses(categoryCourses);
   };
 
   return (
@@ -124,8 +110,8 @@ export default function CourseLibrary() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {currentCourses.length !== 0 ? (
-          currentCourses?.map((course) => (
+        {courses.length !== 0 ? (
+          courses?.map((course) => (
             <div
               key={course.id}
               className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
@@ -159,7 +145,8 @@ export default function CourseLibrary() {
                     <span>{course.duration}</span>
                   </div>
                 </div>
-                <button
+                <Link
+                  href={`/course-library/${course.title}/${course.id}`}
                   className={`w-full flex items-center justify-center space-x-2 px-4 py-2  rounded-lg hover:text-white hover:bg-indigo-700 transition-all duration-300 hover:translate-y-1 ${
                     course.active
                       ? "border border-solid border-indigo-600 text-indigo-600 "
@@ -171,7 +158,7 @@ export default function CourseLibrary() {
                     {course.active ? "Continue Learning" : "Start Learning"}
                   </span>
                   <ChevronRight className="h-5 w-5" />
-                </button>
+                </Link>
               </div>
             </div>
           ))
