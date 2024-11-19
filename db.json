@@ -11,7 +11,7 @@
       "timeLeft": "2 weeks left",
       "active": false,
       "topics": 12,
-      "contentFormat": "Video",
+      "contentFormat": "video",
       "image": "/images/machineLearning.webp",
       "modules": [
         {
@@ -81,7 +81,7 @@
       "timeLeft": "4 weeks left",
       "active": true,
       "topics": 15,
-      "contentFormat": "Audio",
+      "contentFormat": "audio",
       "image": "/images/webdev.webp",
       "modules": [
         {
@@ -151,7 +151,7 @@
       "timeLeft": "3 days left",
       "active": true,
       "topics": 8,
-      "contentFormat": "Text",
+      "contentFormat": "text",
       "image": "/images/uiux.webp",
       "modules": [
         {
@@ -229,7 +229,7 @@
           "title": "Introduction to Machine Learning",
           "duration": "1 week",
           "topics": [
-            "What is Machine Learning?",
+            "What is Machine Learning",
             "Types of Machine Learning",
             "Common Applications and Use Cases"
           ]
