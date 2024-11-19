@@ -58,7 +58,7 @@ const Learning = () => {
       {selectedModuleID && course ? (
         <ModuleDetails
           module={selectedModule}
-          selectedModule={selectedModuleID}
+          // selectedModule={selectedModuleID}
           setSelectedModule={setSelectedModuleID}
           contentFormat={course.contentFormat}
         />

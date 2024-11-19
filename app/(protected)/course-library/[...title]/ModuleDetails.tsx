@@ -4,16 +4,16 @@ import { BookOpen } from "lucide-react";
 
 const ModuleDetails = ({
   module,
-  selectedModule,
+  //   selectedModule,
   setSelectedModule,
   contentFormat,
 }: {
   module: moduleType | null;
-  selectedModule: number;
+  //   selectedModule: number;
   setSelectedModule: (moduleId: number | null) => void;
   contentFormat: string;
 }) => {
-  const [activeModule, setActiveModule] = useState(module);
+  const [activeModule] = useState(module);
   return (
     <div className="flex mt-10 bg-slate-100 px-16 py-10 rounded-2xl gap-10 flex-col w-full">
       <h2 className="text-indigo-600 text-xl font-semibold">
