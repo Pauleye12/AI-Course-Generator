@@ -12,6 +12,14 @@ export interface coursesType {
   contentFormat: string;
   image: string;
   modules: moduleType[];
+  questions: questions[];
+}
+
+export interface questions {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
 }
 
 export interface moduleType {
@@ -29,9 +37,31 @@ export interface metrics {
   color: string;
 }
 
+export interface ResultsModalProps {
+  score: number;
+  totalQuestions: number;
+  timeSpent: string;
+  onClose: () => void;
+  onRetry: () => void;
+}
+
 export interface prompts {
   id: string;
   date: Date;
   promptMessage: string;
   courseFormat: string;
+}
+
+export interface Message {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
+}
+
+export interface ChatSession {
+  id: string;
+  messages: Message[];
+  startTime: Date;
+  endTime?: Date;
+  title: string; // Generated from the first few messages
 }

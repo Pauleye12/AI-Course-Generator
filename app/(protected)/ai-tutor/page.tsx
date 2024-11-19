@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import TutorInterface from "./AITutor";
+import TutorInterface from "./Tutor2";
 
 const page = () => {
   return <TutorInterface />;

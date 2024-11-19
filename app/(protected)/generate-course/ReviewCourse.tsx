@@ -13,46 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { coursesType, prompts } from "@/lib/types";
-// import { addCourse } from "@/lib/MockDB";
 import { addCourse } from "@/lib/services";
-
-// Dummy data for demonstration
-// const initialPlan = {
-//   title: "Advanced Machine Learning Fundamentals",
-//   estimatedDuration: "6 weeks",
-//   modules: [
-//     {
-//       id: 1,
-//       title: "Introduction to Machine Learning",
-//       duration: "1 week",
-//       topics: [
-//         "What is Machine Learning?",
-//         "Types of Machine Learning",
-//         "Common Applications and Use Cases",
-//       ],
-//     },
-//     {
-//       id: 2,
-//       title: "Supervised Learning Algorithms",
-//       duration: "2 weeks",
-//       topics: [
-//         "Linear Regression",
-//         "Decision Trees",
-//         "Support Vector Machines",
-//       ],
-//     },
-//     {
-//       id: 3,
-//       title: "Model Evaluation",
-//       duration: "1 week",
-//       topics: [
-//         "Training and Test Sets",
-//         "Cross-validation",
-//         "Performance Metrics",
-//       ],
-//     },
-//   ],
-// };
 
 const reviewVariants = {
   visible: {
@@ -78,11 +39,11 @@ export default function LearningPlanReview({
   setReviewCourse: (value: boolean) => void;
   promptDetails: prompts;
 }) {
-  // const [plan, setPlan] = useState(initialPlan);
   const [editingModule, setEditingModule] = useState<number | null>(null);
   const [editingTopic, setEditingTopic] = useState<number | null>(null);
   const [newTopic, setNewTopic] = useState("");
   const [deleteModule, setDeleteModule] = useState<number | null>(null);
+  // const [addNewModule, setAddNewModule] = useState(false);
   const router = useRouter();
 
   const CourseTitle = promptDetails.promptMessage
@@ -135,6 +96,97 @@ export default function LearningPlanReview({
         ],
       },
     ],
+    questions: [
+      {
+        id: 1,
+        question:
+          "What is the primary purpose of supervised learning in machine learning?",
+        options: [
+          "To learn from unlabeled data",
+          "To predict outcomes based on labeled training data",
+          "To cluster similar data points",
+          "To reduce dimensionality of data",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 2,
+        question: "Which of the following is NOT a type of machine learning?",
+        options: [
+          "Supervised Learning",
+          "Reinforcement Learning",
+          "Predictive Learning",
+          "Unsupervised Learning",
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  };
+
+  const LatestCourse2 = {
+    title: CourseTitle,
+    id: Number(promptDetails.id + 1),
+    category: "Progamming",
+    level: "Intermediate",
+    rating: 4.9,
+    duration: "12 weeks",
+    progress: 42,
+    timeLeft: "4 weeks left",
+    active: false,
+    topics: 15,
+    contentFormat: promptDetails.courseFormat,
+    image: "/images/webdev.webp",
+    modules: [
+      {
+        id: 1,
+        title: "What is Machine learning",
+        duration: "1 week",
+        topics: ["What is Machine Learning?", "Types of Machine Learning"],
+      },
+      {
+        id: 2,
+        title: "OnHand learning with ML",
+        duration: "2 weeks",
+        topics: ["Linear Triangle", "Decision Trees", "Big Machines"],
+      },
+      {
+        id: 3,
+        title: "CSS ",
+        duration: "1 week",
+        topics: ["Padding and Margin", "Flex box and Grid", "Psedo classses"],
+      },
+      {
+        id: 4,
+        title: "HTML ",
+        duration: "1 week",
+        topics: ["Semantics", "Table", "Span and class"],
+      },
+    ],
+    questions: [
+      {
+        id: 1,
+        question:
+          "What is the primary purpose of supervised learning in machine learning?",
+        options: [
+          "To learn from unlabeled data",
+          "To predict outcomes based on labeled training data",
+          "To cluster similar data points",
+          "To reduce dimensionality of data",
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 2,
+        question: "Which of the following is NOT a type of machine learning?",
+        options: [
+          "Supervised Learning",
+          "Reinforcement Learning",
+          "Predictive Learning",
+          "Unsupervised Learning",
+        ],
+        correctAnswer: 2,
+      },
+    ],
   };
 
   const [newCourse, setNewCourse] = useState<coursesType>(LatestCourse);
@@ -173,6 +225,28 @@ export default function LearningPlanReview({
     setEditingTopic(null);
   };
 
+  //Function to add new module
+  const handleAddNewModule = () => {
+    const newModule = newCourse.modules;
+    newModule.push({
+      id: Number(Date.now()),
+      title: "New Module",
+      duration: "1 week",
+      topics: [],
+    });
+
+    setNewCourse({ ...newCourse, modules: newModule });
+  };
+
+  //Function to handle regenerate
+  const handleRegenerate = () => {
+    console.log("regenerate clicked");
+
+    setNewCourse((prevCourse) =>
+      prevCourse.id === LatestCourse.id ? LatestCourse2 : LatestCourse
+    );
+  };
+
   // Function to Approve the corse outline
   const handleApprove = () => {
     addCourse(newCourse);
@@ -208,10 +282,6 @@ export default function LearningPlanReview({
             <Clock className="h-5 w-5" />
             <span>{newCourse.duration}</span>
           </div>
-          <button className="flex items-center space-x-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-all duration-300 ">
-            <RefreshCw className="h-4 w-4" />
-            <span>Regenerate</span>
-          </button>
         </div>
       </div>
 
@@ -357,14 +427,21 @@ export default function LearningPlanReview({
           </div>
         ))}
 
-        <button className="w-full py-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-indigo-200 hover:text-indigo-600 flex items-center justify-center space-x-2">
+        <button
+          onClick={handleAddNewModule}
+          className="w-full py-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-indigo-200 hover:text-indigo-600 flex items-center justify-center space-x-2"
+        >
           <Plus className="h-5 w-5" />
           <span>Add New Module</span>
         </button>
 
         <div className="flex justify-end space-x-4 mt-8">
-          <button className="px-6 py-2 border-2 border-gray-200 text-gray-600 rounded-lg hover:border-gray-300">
-            Request Changes
+          <button
+            onClick={handleRegenerate}
+            className="flex items-center space-x-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-all duration-300 "
+          >
+            <RefreshCw className="h-4 w-4" />
+            <span>Regenerate</span>
           </button>
           <button
             onClick={handleApprove}

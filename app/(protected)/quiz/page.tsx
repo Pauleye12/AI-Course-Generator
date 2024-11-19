@@ -1,9 +1,9 @@
 "use client";
 
-import Quiz from "./Quiz";
+import QuizInterface from "./Quiz2";
 
 const page = () => {
-  return <Quiz />;
+  return <QuizInterface />;
 };
 
 export default page;

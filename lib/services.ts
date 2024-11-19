@@ -28,6 +28,16 @@ export const getCourseById = async (Id?: number) => {
   }
 };
 
+export const getQuestionsByCourseID = async (courseId: number) => {
+  try {
+    const res = await api.get(`/courses/${courseId}`);
+    const data = res.data;
+    return data.questions;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //Function to get all category
 export const getAllCategory = async () => {
   try {
