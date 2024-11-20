@@ -240,8 +240,6 @@ export default function LearningPlanReview({
 
   //Function to handle regenerate
   const handleRegenerate = () => {
-    console.log("regenerate clicked");
-
     setNewCourse((prevCourse) =>
       prevCourse.id === LatestCourse.id ? LatestCourse2 : LatestCourse
     );
@@ -249,11 +247,9 @@ export default function LearningPlanReview({
 
   // Function to Approve the corse outline
   const handleApprove = () => {
-    console.log(newCourse);
     addCourse(newCourse);
     router.push("/course-library");
   };
-  console.log(promptDetails);
 
   return (
     <motion.div

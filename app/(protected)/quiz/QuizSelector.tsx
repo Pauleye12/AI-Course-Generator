@@ -12,9 +12,9 @@ import { coursesType } from "@/lib/types";
 
 interface QuizSelectorProps {
   courses: coursesType[];
-  onSelectCourse: (courseId: number) => void;
+  onSelectCourse: (courseId: string) => void;
   onStartQuiz: () => void;
-  selectedCourseId: number | null;
+  selectedCourseId: string | null;
 }
 
 export default function QuizSelector({

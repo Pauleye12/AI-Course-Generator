@@ -7,6 +7,7 @@ import { coursesType, moduleType } from "@/lib/types";
 import { usePathname } from "next/navigation";
 import { getCourseById } from "@/lib/services";
 import ModuleDetails from "./ModuleDetails";
+
 // import { useRouter } from "next/router";
 
 const Learning = () => {
@@ -14,12 +15,12 @@ const Learning = () => {
 
   const path = pathName.split("/");
 
-  const ID = Number(path[3]);
+  const ID = path[3];
   const [course, setCourse] = useState<coursesType>();
   const [selectedModuleID, setSelectedModuleID] = useState<number | null>(null);
   const [selectedModule, setSelectedModule] = useState<moduleType | null>(null);
   useEffect(() => {
-    const fetchData = async (id: number) => {
+    const fetchData = async (id: string) => {
       const courseDets = await getCourseById(id);
 
       setCourse(courseDets);

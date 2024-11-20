@@ -51,7 +51,7 @@ import ResultsModal from "./Resultmodal";
 
 export default function QuizInterface() {
   // State management
-  const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [questions, setQuestions] = useState<questions[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -84,7 +84,7 @@ export default function QuizInterface() {
     fetchData();
   }, []);
 
-  const handleCourseSelect = (courseId: number) => {
+  const handleCourseSelect = (courseId: string) => {
     setSelectedCourseId(courseId);
   };
 

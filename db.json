@@ -349,6 +349,82 @@
           "correctAnswer": 2
         }
       ]
+    },
+    {
+      "id": "1732134757727",
+      "title": "well testing again",
+      "category": "Progamming",
+      "level": "Intermediate",
+      "rating": 4.9,
+      "duration": "12 weeks",
+      "progress": 42,
+      "timeLeft": "4 weeks left",
+      "active": false,
+      "topics": 15,
+      "contentFormat": "audio",
+      "image": "/images/webdev.webp",
+      "modules": [
+        {
+          "id": 1,
+          "title": "Introduction to Machine Learning",
+          "duration": "1 week",
+          "topics": [
+            "What is Machine Learning?",
+            "Types of Machine Learning",
+            "Common Applications and Use Cases"
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Supervised Learning Algorithms",
+          "duration": "2 weeks",
+          "topics": [
+            "Linear Regression",
+            "Decision Trees",
+            "Support Vector Machines"
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Model Evaluation",
+          "duration": "1 week",
+          "topics": [
+            "Training and Test Sets",
+            "Cross-validation",
+            "Performance Metrics"
+          ]
+        },
+        {
+          "id": 1732134771726,
+          "title": "New Module",
+          "duration": "1 week",
+          "topics": []
+        }
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is the primary purpose of supervised learning in machine learning?",
+          "options": [
+            "To learn from unlabeled data",
+            "To predict outcomes based on labeled training data",
+            "To cluster similar data points",
+            "To reduce dimensionality of data"
+          ],
+          "correctAnswer": 1
+        },
+        {
+          "id": 2,
+          "question": "Which of the following is NOT a type of machine learning?",
+          "options": [
+            "Supervised Learning",
+            "Reinforcement Learning",
+            "Predictive Learning",
+            "Unsupervised Learning"
+          ],
+          "correctAnswer": 2
+        }
+      ]
     }
   ],
   "dashboardMetrics": [

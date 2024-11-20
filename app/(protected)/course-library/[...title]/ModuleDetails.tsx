@@ -1,6 +1,7 @@
 import { moduleType } from "@/lib/types";
 import React, { useState } from "react";
 import { BookOpen } from "lucide-react";
+import Image from "next/image";
 
 const ModuleDetails = ({
   module,
@@ -42,7 +43,7 @@ const ModuleDetails = ({
                 Your browser does not support the video element.
               </video>
             ) : contentFormat === "images" ? (
-              <img src="image-file.jpg" alt="Descriptive text" />
+              <Image src={"image-file.jpg"} alt="Learning image" />
             ) : null}
           </div>
         ))}

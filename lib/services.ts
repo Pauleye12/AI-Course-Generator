@@ -18,7 +18,7 @@ export const getCourses = async () => {
 };
 
 //Function to get Specific course
-export const getCourseById = async (Id?: number) => {
+export const getCourseById = async (Id?: string) => {
   try {
     const res = await api.get(`/courses/${Id}`);
     return res.data;
@@ -28,7 +28,7 @@ export const getCourseById = async (Id?: number) => {
   }
 };
 
-export const getQuestionsByCourseID = async (courseId: number) => {
+export const getQuestionsByCourseID = async (courseId: string) => {
   try {
     const res = await api.get(`/courses/${courseId}`);
     const data = res.data;
