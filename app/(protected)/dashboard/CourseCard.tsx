@@ -9,7 +9,7 @@ interface CourseCardProps {
   timeLeft: string;
   image: string;
   topics: number;
-  id: number;
+  id: string;
 }
 
 export default function CourseCard({

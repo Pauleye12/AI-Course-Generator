@@ -1,6 +1,6 @@
 export interface coursesType {
   title: string;
-  id: number;
+  id: string;
   category: string;
   level: string;
   rating: number;

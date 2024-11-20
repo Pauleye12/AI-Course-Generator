@@ -53,7 +53,7 @@ export default function LearningPlanReview({
 
   const LatestCourse = {
     title: CourseTitle,
-    id: Number(promptDetails.id),
+    id: String(promptDetails.id),
     category: "Progamming",
     level: "Intermediate",
     rating: 4.9,
@@ -125,7 +125,7 @@ export default function LearningPlanReview({
 
   const LatestCourse2 = {
     title: CourseTitle,
-    id: Number(promptDetails.id + 1),
+    id: String(promptDetails.id + 1),
     category: "Progamming",
     level: "Intermediate",
     rating: 4.9,
@@ -249,6 +249,7 @@ export default function LearningPlanReview({
 
   // Function to Approve the corse outline
   const handleApprove = () => {
+    console.log(newCourse);
     addCourse(newCourse);
     router.push("/course-library");
   };

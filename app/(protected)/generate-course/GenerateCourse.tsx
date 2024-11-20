@@ -80,7 +80,6 @@ export default function CourseCreator() {
   });
 
   const handleSubmit = () => {
-    console.log("Generating course...");
     const submitDetails: prompts = {
       id: String(Date.now()),
       date: new Date(),
@@ -88,7 +87,7 @@ export default function CourseCreator() {
       courseFormat: selectedFormats,
     };
     setPromptsDetails(submitDetails);
-    console.log(submitDetails);
+
     setActiveStep(3);
     setReviewCourse(true);
   };
