@@ -15,6 +15,11 @@ export interface coursesType {
   questions: questions[];
 }
 
+export interface categoryType {
+  id: number;
+  name: string;
+}
+
 export interface questions {
   id: number;
   question: string;

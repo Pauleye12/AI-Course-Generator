@@ -14,8 +14,9 @@ import {
   getCourses,
   getAllCategory,
   getCoursesByCategory,
+  getCourseByTitle,
 } from "@/lib/services";
-import { coursesType } from "@/lib/types";
+import { categoryType, coursesType } from "@/lib/types";
 import Link from "next/link";
 
 const pageVariants = {
@@ -46,7 +47,7 @@ const pageVariants = {
 export default function CourseLibrary() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [categories, setCategory] = useState([]);
+  const [categories, setCategory] = useState<categoryType[] | []>([]);
   const [courses, setCourses] = useState<coursesType[]>([]);
 
   useEffect(() => {
@@ -76,6 +77,15 @@ export default function CourseLibrary() {
     setCourses(categoryCourses);
   };
 
+  const handleSearch = async (searchParam = searchTerm) => {
+    try {
+      const searchedCourses = await getCourseByTitle(searchParam.toLowerCase());
+      setCourses(searchedCourses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <motion.div
       key={selectedCategory}
@@ -88,14 +98,19 @@ export default function CourseLibrary() {
         <h1 className="text-2xl font-bold text-gray-900">Course Library</h1>
         <div className="flex items-center space-x-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
               placeholder="Search courses..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                handleSearch(e.target.value);
+              }}
+              className="pl-10 pr-4 py-2 border-2 border-gray-200 rounded-lg  focus:border-indigo-600 outline-none "
             />
+            <div className="absolute left-3 top-1/2 -translate-y-1/2  h-full flex justify-center items-center ">
+              <Search className=" cursor-pointer hover:text-indigo-600  h-5 w-5 text-gray-400" />
+            </div>
           </div>
           {/* <button className="flex items-center space-x-2 px-4 py-2 border-2 border-gray-200 rounded-lg hover:bg-gray-50">
             <Filter className="h-5 w-5 text-gray-600" />
@@ -107,15 +122,15 @@ export default function CourseLibrary() {
       <div className="flex space-x-2 mb-8 overflow-x-auto pb-2">
         {categories?.map((category) => (
           <button
-            key={category}
-            onClick={() => handleCategory(category)}
+            key={category.name}
+            onClick={() => handleCategory(category.name)}
             className={`px-4 py-2 rounded-full whitespace-nowrap ${
-              selectedCategory === category
+              selectedCategory === category.name
                 ? "bg-indigo-600 text-white"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
             }`}
           >
-            {category}
+            {category.name}
           </button>
         ))}
       </div>

@@ -60,17 +60,28 @@ export const getCoursesByCategory = async (category: string) => {
     );
 
     if (category !== "All" && categoryCourses.length !== 0) {
-      console.log("yes");
       return categoryCourses;
     } else if (category === "All") {
       return data; // Return all courses if category is "All"
     } else if (categoryCourses.length === 0) {
-      console.log("mid");
       return categoryCourses; // Return empty array if no courses match
     } else {
-      console.log("no");
       return data; // Return all courses if no matches found
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//Function to get courses by title
+export const getCourseByTitle = async (text: string) => {
+  try {
+    const res = await api.get("/courses");
+    const data = res.data;
+    const CourseFound = data.filter((C: coursesType) =>
+      C.title.toLowerCase().match(text)
+    );
+    return CourseFound;
   } catch (error) {
     console.error(error);
   }

@@ -313,11 +313,11 @@
   ],
   "chatHistory": [],
   "categories": [
-    "All",
-    "Data Science",
-    "Programming",
-    "Design",
-    "Business",
-    "Marketing"
+    { "id": 1, "name": "All" },
+    { "id": 2, "name": "Data Science" },
+    { "id": 3, "name": "Programming" },
+    { "id": 4, "name": "Design" },
+    { "id": 5, "name": "Business" },
+    { "id": 6, "name": "Marketing" }
   ]
 }
